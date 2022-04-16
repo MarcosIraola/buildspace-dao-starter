@@ -33,7 +33,7 @@ const App = () => {
     // This useEffect grabs all the addresses of our members holding our NFT.
     useEffect(() => {
         if (!hasClaimedNFT) {
-        return;
+            return;
         }
     
         // Just like we did in the 7-airdrop-token.js file! Grab the users who hold our NFT
@@ -138,11 +138,14 @@ const App = () => {
     if (hasClaimedNFT) {
         return (
           <div className="member-page">
-            <h1>🍪DAO Member Page</h1>
-            <p>Congratulations on being a member</p>
+            <h1>Fuego Austral DAO <br/> 🔥 members page 🔥 <br/> </h1>
+            <span>Rest of it comming soon.</span>
+            <span>Por ahora, se conecta la wallet, se mintea un nft y se puede recibir un airdop.</span>
             <div>
               <div>
                 <h2>Member List</h2>
+                <span>Estos son los miembros que claimearon un nft para acceder y tienen $FUEGOS 🔥</span>
+                <span>(por alguna razon no son todos los holders del nft)</span>
                 <table className="card">
                   <thead>
                     <tr>
@@ -155,7 +158,7 @@ const App = () => {
                       return (
                         <tr key={member.address}>
                           <td>{shortenAddress(member.address)}</td>
-                          <td>{member.tokenAmount}</td>
+                          <td>🔥 - {member.tokenAmount}</td>
                         </tr>
                       );
                     })}
