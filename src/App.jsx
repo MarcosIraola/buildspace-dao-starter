@@ -1,6 +1,7 @@
-import { useAddress, useMetamask, useEditionDrop, useToken, useVote } from '@thirdweb-dev/react';
+import { useAddress, useMetamask, useEditionDrop, useToken, useVote, useNetwork } from '@thirdweb-dev/react';
 import { useState, useEffect, useMemo } from 'react';
 import { AddressZero } from "@ethersproject/constants";
+import { ChainId } from '@thirdweb-dev/sdk'
 
 
 
@@ -13,6 +14,8 @@ const App = () => {
     const editionDrop = useEditionDrop("0x0026Db4182049363C07A085BBBF768320D3BF15E");
     const token = useToken("0x35D14c46da0411687CEFf6ACC06e101f88133AfE");
     const vote = useVote("0x624eDd4283C220F8F25bA8579Cb251341190f510");
+
+    const network = useNetwork();
 
 
     // State variable for us to know if user has our NFT.
@@ -33,6 +36,8 @@ const App = () => {
     const [proposals, setProposals] = useState([]);
     const [isVoting, setIsVoting] = useState(false);
     const [hasVoted, setHasVoted] = useState(false);
+
+    
 
     // Retrieve all our existing proposals from the contract.
     useEffect(() => {
@@ -171,6 +176,18 @@ const App = () => {
             setIsClaiming(false);
         }
     };
+
+    if (network?.[0].data.chain.id !== ChainId.Rinkeby) {
+        return (
+          <div className="unsupported-network">
+            <h2>Please connect to Rinkeby</h2>
+            <p>
+              This dapp only works on the Rinkeby network, please switch networks
+              in your connected wallet.
+            </p>
+          </div>
+        );
+    }
 
 
     if (!address) {
